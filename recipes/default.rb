@@ -51,14 +51,29 @@ service "jenkins" do
   action [:start, :enable]
 end
 
-
-
-
 package "apache2" do
   action :install
 end
 
 service "apache2" do
   action [:enable, :start]
+end
+
+execute "enable the proxy" do
+	command "a2enmod proxy"
+	command " a2enmod proxy_http"
+end
+
+
+template '/etc/apache2/sites-available/jenkins.conf' do
+	source 'jenkins.conf.erb'
+	owner 'root'
+	group 'root'
+end
+
+execute 'activate the jenkins virtual host' do
+	command "a2ensite jenkins"
+	notifies :restart, 'service[apache2]'
+	notifies :restart, 'service[jenkins]'
 end
 
