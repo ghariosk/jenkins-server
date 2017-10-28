@@ -50,3 +50,9 @@ service "jenkins" do
   supports [:stop, :start, :restart]
   action [:start, :enable]
 end
+
+
+package 'apache2-bin' do
+	action :install 
+end
+

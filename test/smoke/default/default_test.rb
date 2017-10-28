@@ -46,9 +46,13 @@ describe port(8080) do
 	# its('addresses'){should include '0.0.0.0' }
 end
 
-describe elasticsearch do
-  its('java.version') { should cmp '1.8.0' }
-end
+# describe elasticsearch do
+#   its('java.version') { should cmp '1.8.0' }
+# end
 
+
+describe package('apache2-bin') do
+	it {should be_installed}
+end
 
 
