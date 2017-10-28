@@ -16,3 +16,39 @@ end
 describe port(80), :skip do
   it { should_not be_listening }
 end
+
+describe package('oracle-java8-installer') do
+	it {should be_installed}
+end
+
+describe package('oracle-java8-set-default') do
+	it {should be_installed}
+end
+
+
+ describe package("java-1.8.0-oracle") do
+      it { should be_installed } 
+  end
+
+# describe package 'java' do
+# 	it {should be_installed}
+# 	its('version'){ should match /1\.8\../ }
+# end
+
+
+describe package('jenkins') do
+	it {should be_installed} 
+end
+
+
+describe port(8080) do
+	it {should be_listening}
+	# its('addresses'){should include '0.0.0.0' }
+end
+
+describe elasticsearch do
+  its('java.version') { should cmp '1.8.0' }
+end
+
+
+
