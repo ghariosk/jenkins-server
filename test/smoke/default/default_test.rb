@@ -51,8 +51,10 @@ end
 # end
 
 
-describe package('apache2-bin') do
+describe package('apache2') do
 	it {should be_installed}
+	its('version') {should match /2\.4\./}
 end
+
 
 

@@ -52,7 +52,13 @@ service "jenkins" do
 end
 
 
-package 'apache2-bin' do
-	action :install 
+
+
+package "apache2" do
+  action :install
+end
+
+service "apache2" do
+  action [:enable, :start]
 end
 
