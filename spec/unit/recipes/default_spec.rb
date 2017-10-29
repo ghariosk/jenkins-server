@@ -50,5 +50,9 @@ describe 'jenkins-server::default' do
     it 'should install apache2' do 
       expect(chef_run).to install_package 'apache2'
     end
+
+    it 'should enable apache2' do
+      expect(chef_run).to enable_service 'apache2'
+    end
   end
 end

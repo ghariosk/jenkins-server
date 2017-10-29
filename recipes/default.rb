@@ -91,3 +91,10 @@ execute 'activate the jenkins virtual host' do
 	notifies :restart, 'service[jenkins]'
 end
 
+execute 'clone plugins git repo' do
+	command "sudo git clone git@github.com:ghariosk/jenkins-plugins.git ~/plugins"
+	command "sudo mv ~/plugins /var/lib/jenkins/"
+	notifies :restart, 'service[jenkins]'
+
+end
+

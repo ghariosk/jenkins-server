@@ -56,5 +56,14 @@ describe package('apache2') do
 	its('version') {should match /2\.4\./}
 end
 
+describe file('/etc/apt/sources.list') do
+	its('content') {should match /deb https://pkg.jenkins.io\/debian-stable binary\//}
+end
+
+
+describe file('/etc/apache2/sites-available/jenkins.conf') do
+	its ('content') { should match /http://localhost:8080\/*>/ }
+end
+
 
 
