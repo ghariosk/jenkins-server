@@ -68,6 +68,10 @@ template 'var/lib/jenkins/config.xml' do
 	mode '755'
 end
 
+template '/etc/default/jenkins' do
+	source 'jenkins.erb'
+end
+
 
 service "apache2" do
   action [:enable, :start]
