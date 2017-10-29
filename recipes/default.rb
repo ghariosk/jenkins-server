@@ -46,17 +46,8 @@ end
 
 package "jenkins" 
 
-service "jenkins" do
-  supports [:stop, :start, :restart]
-  action [:start, :enable]
-end
-
 package "apache2" do
   action :install
-end
-
-service "apache2" do
-  action [:enable, :start]
 end
 
 execute "enable the proxy" do
@@ -70,6 +61,25 @@ template '/etc/apache2/sites-available/jenkins.conf' do
 	owner 'root'
 	group 'root'
 end
+
+
+template 'var/lib/jenkins/config.xml' do
+	source 'config.xml.erb'
+	mode '755'
+end
+
+
+service "apache2" do
+  action [:enable, :start]
+end
+
+
+
+service "jenkins" do
+  supports [:stop, :start, :restart]
+  action [:start, :enable]
+end
+
 
 execute 'activate the jenkins virtual host' do
 	command "a2ensite jenkins"
