@@ -97,12 +97,12 @@ end
 # 	notifies :restart, 'service[jenkins]'
 # end
 
-package 'git'
-%w(git credentials ssh-credentials git-client scm-api github github-api github-oauth mailer).each do |plugin|
-  plugin, version = plugin.split('=')
-  jenkins_plugin plugin do
-    version version if version
-    notifies :create, "ruby_block[jenkins_restart_flag]", :immediately
-  end
-end
+# package 'git'
+# %w(git credentials ssh-credentials git-client scm-api github github-api github-oauth mailer).each do |plugin|
+#   plugin, version = plugin.split('=')
+#   jenkins_plugin plugin do
+#     version version if version
+#     notifies :create, "ruby_block[jenkins_restart_flag]", :immediately
+#   end
+# end
 
