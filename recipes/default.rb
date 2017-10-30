@@ -91,10 +91,18 @@ execute 'activate the jenkins virtual host' do
 	notifies :restart, 'service[jenkins]'
 end
 
-execute 'clone plugins git repo' do
-	command "sudo git clone git@github.com:ghariosk/jenkins-plugins.git ~/plugins"
-	command "sudo mv ~/plugins /var/lib/jenkins/"
-	notifies :restart, 'service[jenkins]'
+# execute 'clone plugins git repo' do
+# 	command "sudo git clone git@github.com:ghariosk/jenkins-plugins.git ~/plugins"
+# 	command "sudo mv ~/plugins /var/lib/jenkins/"
+# 	notifies :restart, 'service[jenkins]'
+# end
 
+package 'git'
+%w(git credentials ssh-credentials git-client scm-api github github-api github-oauth mailer).each do |plugin|
+  plugin, version = plugin.split('=')
+  jenkins_plugin plugin do
+    version version if version
+    notifies :create, "ruby_block[jenkins_restart_flag]", :immediately
+  end
 end
 
